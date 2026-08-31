@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dapur Rasya — Resep Nusantara oleh RAYSHA KARINA PUTRI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #1f140f;
+    --bg-soft: #291b14;
+    --panel: #2e1e16;
+    --cream: #f4e9da;
+    --cream-dim: #cdbfae;
+    --chili: #d6472e;
+    --turmeric: #e3a857;
+    --herb: #7c9a6b;
+    --line: rgba(244,233,218,0.14);
+    --radius-s: 4px;
+    --radius-m: 10px;
+    --serif: 'Fraunces', serif;
+    --sans: 'Work Sans', sans-serif;
+    --ease: cubic-bezier(.22,.68,.16,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  ul{list-style:none;}
+
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  ::selection{background:var(--chili); color:var(--cream);}
+
+  /* ---------- scrollbar subtle ---------- */
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--panel); border-radius:10px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:26px 0;
+    transition:padding .4s var(--ease), background .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  header.scrolled{
+    padding:14px 0;
+    background:rgba(31,20,15,0.92);
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 30px rgba(0,0,0,0.35);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    display:flex; flex-direction:column; line-height:1;
+  }
+  .logo .mark{
+    font-family:var(--serif); font-weight:600; font-size:1.5rem; letter-spacing:0.01em;
+  }
+  .logo .sub{
+    font-size:0.66rem; letter-spacing:0.08em; color:var(--turmeric); margin-top:4px;
+  }
+  .nav-links{
+    display:flex; gap:38px; font-size:0.92rem;
+  }
+  .nav-links a{
+    position:relative; padding-bottom:4px; color:var(--cream-dim);
+    transition:color .25s;
+  }
+  .nav-links a:hover{color:var(--cream);}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--chili); transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-toggle{display:none; width:26px; height:20px; position:relative; flex-direction:column; justify-content:space-between;}
+  .nav-toggle span{display:block; height:2px; width:100%; background:var(--cream); border-radius:2px; transition:.3s var(--ease);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:120px; padding-bottom:80px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    width:100%;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:end;
+  }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:0.85rem; color:var(--turmeric); margin-bottom:22px;
+    opacity:0; transform:translateY(14px);
+  }
+  .hero-eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--chili);}
+
+  .hero h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(2.8rem, 6.4vw, 5.6rem);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    opacity:0; transform:translateY(24px);
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:500; color:var(--turmeric);
+  }
+
+  .steam{
+    margin:26px 0 30px;
+    width:220px; height:46px;
+    opacity:0;
+  }
+  .steam path{
+    stroke:var(--chili);
+    stroke-width:2;
+    fill:none;
+    stroke-linecap:round;
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+  }
+
+  .hero-desc{
+    max-width:420px; color:var(--cream-dim); font-size:1.02rem;
+    opacity:0; transform:translateY(18px);
+  }
+
+  .hero-cta{
+    margin-top:34px; display:flex; gap:16px; align-items:center;
+    opacity:0; transform:translateY(18px);
+  }
+  .btn{
+    padding:14px 28px; border-radius:100px; font-size:0.92rem; font-weight:500;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+  }
+  .btn-primary{background:var(--chili); color:var(--cream);}
+  .btn-primary:hover{transform:translateY(-2px); background:#c23a24;}
+  .btn-ghost{border:1px solid var(--line); color:var(--cream);}
+  .btn-ghost:hover{border-color:var(--turmeric); color:var(--turmeric);}
+
+  .hero-side{
+    position:relative;
+    opacity:0; transform:translateY(30px);
+  }
+  .hero-side .card-float{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:26px;
+    position:relative;
+  }
+  .hero-side .plate{
+    width:100%; aspect-ratio:4/3; border-radius:var(--radius-s);
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(227,168,87,0.5), transparent 55%),
+      radial-gradient(ellipse at 70% 65%, rgba(214,71,46,0.45), transparent 55%),
+      linear-gradient(135deg, #4a2f1f, #201410);
+    margin-bottom:16px;
+    position:relative; overflow:hidden;
+  }
+  .hero-side .plate::after{
+    content:'';
+    position:absolute; inset:0;
+    background-image:radial-gradient(rgba(244,233,218,0.06) 1px, transparent 1px);
+    background-size:14px 14px;
+  }
+  .hero-side .stat-row{display:flex; justify-content:space-between; font-size:0.82rem; color:var(--cream-dim);}
+  .hero-side .stat-row strong{display:block; color:var(--cream); font-family:var(--serif); font-size:1.3rem; font-weight:600;}
+
+  .hero-bg-word{
+    position:absolute; right:-40px; top:8%;
+    font-family:var(--serif); font-size:min(28vw,340px); font-weight:700;
+    color:transparent; -webkit-text-stroke:1px rgba(244,233,218,0.05);
+    z-index:-1; user-select:none; pointer-events:none;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:110px 0;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px;
+    margin-bottom:56px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:28px;
+  }
+  .section-head h2{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2rem,3.6vw,2.9rem);
+  }
+  .section-head p{color:var(--cream-dim); max-width:340px; font-size:0.95rem;}
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- FILTER TABS ---------- */
+  .filters{
+    display:flex; flex-wrap:wrap; gap:12px; margin-bottom:48px;
+  }
+  .filter-btn{
+    padding:9px 20px; border:1px solid var(--line); border-radius:100px;
+    font-size:0.86rem; color:var(--cream-dim);
+    transition:all .3s var(--ease);
+  }
+  .filter-btn:hover{border-color:var(--turmeric); color:var(--cream);}
+  .filter-btn.active{background:var(--turmeric); border-color:var(--turmeric); color:var(--bg); font-weight:600;}
+
+  /* ---------- RECIPE GRID ---------- */
+  .recipe-grid{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:26px;
+  }
+  .rcard{
+    grid-column:span 3;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    overflow:hidden;
+    cursor:pointer;
+    transition:border-color .35s var(--ease), transform .35s var(--ease);
+  }
+  .rcard.big{grid-column:span 4;}
+  .rcard.small{grid-column:span 2;}
+  .rcard:hover{border-color:var(--turmeric); transform:translateY(-4px);}
+  .rcard .thumb{
+    aspect-ratio:5/4; position:relative; overflow:hidden;
+  }
+  .rcard.small .thumb{aspect-ratio:1/1;}
+  .rcard .thumb img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease);}
+  .rcard:hover .thumb img{transform:scale(1.06);}
+  .rcard .tag{
+    position:absolute; top:14px; left:14px;
+    background:rgba(31,20,15,0.75); backdrop-filter:blur(4px);
+    padding:5px 12px; border-radius:100px; font-size:0.72rem; color:var(--turmeric);
+    border:1px solid rgba(227,168,87,0.35);
+  }
+  .rcard .body{padding:20px 22px 24px;}
+  .rcard h3{
+    font-family:var(--serif); font-weight:600; font-size:1.3rem; margin-bottom:8px;
+  }
+  .rcard.small h3{font-size:1.05rem;}
+  .rcard p{color:var(--cream-dim); font-size:0.88rem; margin-bottom:16px;}
+  .rcard .meta{
+    display:flex; gap:16px; font-size:0.78rem; color:var(--cream-dim);
+    border-top:1px solid var(--line); padding-top:14px;
+  }
+  .rcard .meta span{display:flex; align-items:center; gap:6px;}
+
+  .hidden-card{display:none !important;}
+
+  /* ---------- PROFIL ---------- */
+  .profile{
+    display:grid; grid-template-columns:0.8fr 1.2fr; gap:70px; align-items:center;
+  }
+  .profile-portrait{
+    aspect-ratio:3/4; border-radius:var(--radius-m);
+    background:
+      radial-gradient(ellipse at 35% 20%, rgba(227,168,87,0.4), transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(124,154,107,0.35), transparent 55%),
+      linear-gradient(160deg, #3a271b, #1a1109);
+    position:relative; overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .profile-portrait::after{
+    content:'RKP';
+    position:absolute; bottom:24px; left:24px;
+    font-family:var(--serif); font-size:3.2rem; font-weight:700;
+    color:rgba(244,233,218,0.12);
+  }
+  .profile-text .kicker{color:var(--herb); font-size:0.85rem; margin-bottom:14px;}
+  .profile-text h2{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,3.4vw,2.6rem);
+    margin-bottom:22px; line-height:1.15;
+  }
+  .profile-text p{color:var(--cream-dim); margin-bottom:18px; max-width:560px;}
+  .profile-signoff{
+    margin-top:26px; font-family:var(--serif); font-style:italic; font-size:1.3rem; color:var(--turmeric);
+  }
+  .profile-stats{
+    display:flex; gap:44px; margin-top:38px; padding-top:30px; border-top:1px solid var(--line);
+  }
+  .profile-stats div strong{
+    display:block; font-family:var(--serif); font-size:1.9rem; color:var(--cream); font-weight:600;
+  }
+  .profile-stats div span{font-size:0.8rem; color:var(--cream-dim);}
+
+  /* ---------- NEWSLETTER ---------- */
+  .newsletter{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-m);
+    padding:60px; display:flex; justify-content:space-between; align-items:center; gap:40px;
+  }
+  .newsletter h3{font-family:var(--serif); font-size:1.9rem; font-weight:600; margin-bottom:10px;}
+  .newsletter p{color:var(--cream-dim); max-width:380px; font-size:0.92rem;}
+  .newsletter-form{display:flex; gap:12px; flex-shrink:0;}
+  .newsletter-form input{
+    background:var(--bg); border:1px solid var(--line); border-radius:100px;
+    padding:13px 20px; color:var(--cream); font-size:0.9rem; width:240px;
+  }
+  .newsletter-form input:focus{outline:2px solid var(--turmeric); outline-offset:2px;}
+  .newsletter-msg{font-size:0.8rem; color:var(--herb); margin-top:10px; height:14px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line); padding:50px 0 34px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  footer .logo .mark{font-size:1.2rem;}
+  footer nav{display:flex; gap:28px; font-size:0.86rem; color:var(--cream-dim);}
+  footer nav a:hover{color:var(--turmeric);}
+  .footer-copy{font-size:0.78rem; color:var(--cream-dim); width:100%; padding-top:24px; border-top:1px solid var(--line); margin-top:20px;}
+
+  /* ---------- MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(15,9,6,0.7); backdrop-filter:blur(6px);
+    z-index:200; display:flex; align-items:center; justify-content:center; padding:30px;
+    opacity:0; pointer-events:none; transition:opacity .35s var(--ease);
+  }
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:14px;
+    max-width:760px; width:100%; max-height:86vh; overflow-y:auto;
+    padding:44px;
+    transform:translateY(24px) scale(0.98); transition:transform .4s var(--ease);
+  }
+  .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+  .modal-close{
+    position:sticky; top:0; float:right; width:38px; height:38px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; transition:.25s;
+  }
+  .modal-close:hover{border-color:var(--chili); color:var(--chili);}
+  .modal .tag{
+    display:inline-block; color:var(--turmeric); font-size:0.78rem; margin-bottom:14px;
+    border:1px solid rgba(227,168,87,0.35); padding:5px 12px; border-radius:100px;
+  }
+  .modal h2{font-family:var(--serif); font-size:2.1rem; font-weight:600; margin-bottom:10px; max-width:80%;}
+  .modal .modal-desc{color:var(--cream-dim); margin-bottom:26px;}
+  .modal .modal-meta{display:flex; gap:26px; margin-bottom:32px; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .modal .modal-meta div span{display:block; font-size:0.74rem; color:var(--cream-dim);}
+  .modal .modal-meta div strong{font-family:var(--serif); font-size:1.15rem; font-weight:600;}
+  .modal-cols{display:grid; grid-template-columns:1fr 1.3fr; gap:36px;}
+  .modal h4{font-size:0.8rem; letter-spacing:0.04em; color:var(--herb); margin-bottom:16px;}
+  .modal .ing-list li{
+    padding:9px 0; border-bottom:1px solid var(--line); font-size:0.9rem; display:flex; justify-content:space-between; gap:10px;
+  }
+  .modal .ing-list li span:last-child{color:var(--cream-dim); flex-shrink:0;}
+  .modal .step-list li{
+    display:flex; gap:16px; margin-bottom:20px; font-size:0.92rem; color:var(--cream-dim);
+  }
+  .modal .step-list li .num{
+    flex-shrink:0; width:28px; height:28px; border-radius:50%; background:var(--panel);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:0.85rem; color:var(--turmeric); font-weight:600;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-side{order:-1; max-width:340px;}
+    .profile{grid-template-columns:1fr;}
+    .profile-portrait{max-width:320px; aspect-ratio:4/3;}
+    .newsletter{flex-direction:column; align-items:flex-start; padding:40px 28px;}
+    .newsletter-form{width:100%;}
+    .newsletter-form input{width:100%;}
+    .modal-cols{grid-template-columns:1fr;}
+  }
+
+  @media (max-width:760px){
+    .wrap{padding:0 22px;}
+    .nav-links{
+      position:fixed; top:0; right:-100%; height:100vh; width:78%;
+      background:var(--bg-soft); flex-direction:column; justify-content:center; align-items:flex-start;
+      padding:40px; gap:26px; transition:right .4s var(--ease); border-left:1px solid var(--line);
+    }
+    .nav-links.open{right:0;}
+    .nav-toggle{display:flex;}
+    .section{padding:70px 0;}
+    .section-head{flex-direction:column; align-items:flex-start; gap:14px;}
+    .rcard, .rcard.big, .rcard.small{grid-column:span 6;}
+    .modal{padding:30px 24px;}
+  }
+
+/* ===== VISUAL POLISH / IMAGE UPGRADE ===== */
+.hero-side .plate{
+  background-image:url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=85') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  min-height:360px;
+  box-shadow:0 22px 60px rgba(0,0,0,.28);
+}
+.hero-side .plate::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.42));
+  z-index:1;
+}
+.hero-side .plate::after{
+  z-index:2;
+  opacity:.18;
+}
+.profile-portrait{
+  background-image:linear-gradient(180deg,rgba(31,20,15,.05),rgba(31,20,15,.35)),url('https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=85') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  min-height:430px;
+  box-shadow:0 22px 60px rgba(0,0,0,.22);
+}
+.profile-portrait::after{z-index:2;}
+
+.rcard .thumb{
+  background:#21150f;
+}
+.rcard .thumb img{
+  display:block;
+}
+.recipe-photo{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  filter:saturate(1.04) contrast(1.02);
+}
+.recipe-photo-fallback{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(244,233,218,.55);
+  font-family:var(--serif);font-size:1.1rem;
+}
+.rcard .tag{z-index:3;}
+.rcard{
+  box-shadow:0 12px 35px rgba(0,0,0,.12);
+}
+.rcard:hover{
+  box-shadow:0 20px 45px rgba(0,0,0,.22);
+}
+.btn:focus-visible,.filter-btn:focus-visible,.nav-toggle:focus-visible,
+.modal-close:focus-visible,.newsletter-form input:focus-visible{
+  outline:2px solid var(--turmeric);
+  outline-offset:3px;
+}
+.modal{
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+}
+.modal-recipe-image{
+  width:100%;height:260px;object-fit:cover;border-radius:10px;
+  margin:-8px 0 26px;
+}
+@media (max-width:760px){
+  .hero-side .plate{min-height:250px;}
+  .profile-portrait{min-height:360px;}
+  .modal-recipe-image{height:210px;}
+  .hero-cta{flex-wrap:wrap;}
+  .btn{padding:13px 21px;}
+}
+
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">
+        <span class="mark">Dapur Rasya</span>
+        <span class="sub">OLEH RASYA KARINA PUTRI</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#resep">Resep</a></li>
+        <li><a href="#profil">Profil</a></li>
+        <li><a href="#kabar">Kabar Dapur</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-bg-word">RKP</span>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-eyebrow" id="a1"><span class="dot"></span> Dapur rumahan, rasa turun-temurun</div>
+          <h1 id="a2">Resep dapur<br>yang <em>terasa</em><br>seperti rumah.</h1>
+          <svg class="steam" id="steamSvg" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 40 C 40 10, 70 40, 106 20 S 170 4, 216 26"/>
+          </svg>
+          <p class="hero-desc" id="a3">Kumpulan resep Nusantara yang saya masak ulang di dapur sendiri — ditakar ulang, dicoba berkali-kali, dan ditulis supaya siapa pun bisa berhasil di percobaan pertama.</p>
+          <div class="hero-cta" id="a4">
+            <a href="#resep" class="btn btn-primary">Jelajahi resep</a>
+            <a href="#profil" class="btn btn-ghost">Kenalan dulu</a>
+          </div>
+        </div>
+        <div class="hero-side" id="a5">
+          <div class="card-float">
+            <div class="plate"></div>
+            <div class="stat-row">
+              <div><strong>48</strong>Resep tersimpan</div>
+              <div><strong>4.9</strong>Rerata rating</div>
+              <div><strong>12</strong>Daerah asal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEP -->
+  <section class="section" id="resep">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Resep pilihan minggu ini</h2>
+        <p>Disusun dari dapur ke dapur — takaran pasti, tanpa basa-basi.</p>
+      </div>
+
+      <div class="filters reveal">
+        <button class="filter-btn active" data-filter="semua">Semua</button>
+        <button class="filter-btn" data-filter="utama">Menu Utama</button>
+        <button class="filter-btn" data-filter="kudapan">Kudapan</button>
+        <button class="filter-btn" data-filter="sup">Berkuah</button>
+        <button class="filter-btn" data-filter="minuman">Minuman</button>
+      </div>
+
+      <div class="recipe-grid reveal" id="recipeGrid"></div>
+    </div>
+  </section>
+
+  <!-- PROFIL -->
+  <section class="section" id="profil">
+    <div class="wrap profile">
+      <div class="profile-portrait reveal"></div>
+      <div class="profile-text reveal">
+        <div class="kicker">Pemilik & Penulis Resep</div>
+        <h2>RAYSHA KARINA PUTRI</h2>
+        <p>Dapur Rasya dimulai dari catatan masakan ibu yang saya salin ulang supaya tidak hilang. Sekarang isinya bertambah dengan resep-resep yang saya kumpulkan dari perjalanan, dapur teman, dan percobaan sendiri yang gagal berkali-kali sebelum akhirnya pas.</p>
+        <p>Saya percaya resep yang baik itu jujur soal takaran dan waktu — bukan sekadar terlihat cantik di foto. Setiap resep di sini sudah saya masak ulang minimal tiga kali sebelum ditulis.</p>
+        <p class="profile-signoff">— RAYSHA KARINA PUTRI</p>
+        <div class="profile-stats">
+          <div><strong>7</strong><span>Tahun menulis resep</span></div>
+          <div><strong>48</strong><span>Resep diterbitkan</span></div>
+          <div><strong>12</strong><span>Daerah masakan</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section" id="kabar">
+    <div class="wrap">
+      <div class="newsletter reveal">
+        <div>
+          <h3>Kabar dapur, langsung ke email</h3>
+          <p>Satu resep baru setiap minggu, dikirim oleh RAYSHA KARINA PUTRI sendiri. Tanpa spam, berhenti kapan saja.</p>
+        </div>
+        <div>
+          <form class="newsletter-form" id="nlForm">
+            <input type="email" placeholder="nama@email.com" required id="nlEmail">
+            <button class="btn btn-primary" type="submit">Berlangganan</button>
+          </form>
+          <div class="newsletter-msg" id="nlMsg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; width:100%;">
+    <a href="#top" class="logo"><span class="mark">Dapur Rasya</span></a>
+    <nav>
+      <a href="#resep">Resep</a>
+      <a href="#profil">Profil</a>
+      <a href="#kabar">Kabar Dapur</a>
+    </nav>
+    <div class="footer-copy">© 2026 Dapur Rasya — dimiliki dan ditulis oleh RAYSHA KARINA PUTRI.</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+(function(){
+
+  /* ---------------- DATA RESEP ---------------- */
+  const recipes = [
+    {
+      id:1, cat:'utama', size:'big', tag:'Menu Utama', time:'3 jam', level:'Menengah', porsi:'6 porsi',
+      image:'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=85',
+      title:'Rendang Daging Sapi',
+      desc:'Rendang kering ala Minang, dimasak perlahan sampai santan mengering dan bumbunya menempel sempurna di daging.',
+      ing:[['Daging sapi has dalam','800 g'],['Santan kental','1200 ml'],['Cabai merah keriting','15 buah'],['Bawang merah','10 siung'],['Bawang putih','5 siung'],['Lengkuas, memarkan','3 cm'],['Serai, memarkan','2 batang'],['Daun jeruk','5 lembar'],['Daun kunyit','1 lembar'],['Kelapa parut sangrai (kerisik)','4 sdm'],['Garam','secukupnya']],
+      steps:['Haluskan cabai, bawang merah, dan bawang putih hingga menjadi bumbu halus.','Tumis bumbu halus bersama lengkuas, serai, daun jeruk, dan daun kunyit hingga harum dan matang.','Masukkan daging, aduk sampai berubah warna dan bumbu meresap.','Tuang santan, masak dengan api sedang sambil sesekali diaduk agar santan tidak pecah.','Setelah mendidih, kecilkan api dan masak 2–3 jam sampai kuah menyusut dan mengental.','Masukkan kerisik, aduk terus hingga rendang berwarna cokelat gelap dan kering.','Koreksi rasa, matikan api saat minyak mulai keluar dari bumbu.']
+    },
+    {
+      id:2, cat:'sup', size:'normal', tag:'Berkuah', time:'1 jam', level:'Mudah', porsi:'4 porsi',
+      image:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85',
+      title:'Soto Ayam Lamongan',
+      desc:'Kuah kuning bening dengan taburan koya gurih, favorit sarapan yang selalu bikin nagih.',
+      ing:[['Ayam kampung','1/2 ekor'],['Air','2 liter'],['Kunyit, bakar','3 cm'],['Kemiri, sangrai','4 butir'],['Bawang putih','5 siung'],['Bawang merah','6 siung'],['Jahe','2 cm'],['Serai','2 batang'],['Daun jeruk','4 lembar'],['Kerupuk udang, tumbuk','3 buah untuk koya'],['Bawang putih goreng','3 sdm untuk koya']],
+      steps:['Rebus ayam bersama air hingga empuk, angkat dan suwir dagingnya, sisihkan kaldu.','Haluskan kunyit, kemiri, bawang putih, bawang merah, dan jahe.','Tumis bumbu halus bersama serai dan daun jeruk hingga harum.','Masukkan tumisan bumbu ke dalam kaldu, masak hingga mendidih dan beraroma.','Buat koya dengan menumbuk kerupuk udang dan bawang putih goreng hingga halus.','Sajikan kuah panas dengan suwiran ayam, taburi koya, lengkapi dengan pelengkap favorit.']
+    },
+    {
+      id:3, cat:'utama', size:'small', tag:'Menu Utama', time:'40 menit', level:'Mudah', porsi:'3 porsi',
+      image:'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=1000&q=85',
+      title:'Nasi Goreng Kampung',
+      desc:'Nasi goreng sederhana dengan aroma terasi dan cabai rawit yang menggigit.',
+      ing:[['Nasi putih dingin','3 piring'],['Terasi bakar','1 sdt'],['Cabai rawit merah','8 buah'],['Bawang merah','5 siung'],['Bawang putih','3 siung'],['Telur','2 butir'],['Kecap manis','2 sdm'],['Daun bawang, iris','2 batang']],
+      steps:['Haluskan terasi, cabai rawit, bawang merah, dan bawang putih.','Tumis bumbu halus hingga harum, sisihkan sedikit ke pinggir wajan.','Ceplok telur di tengah wajan, orak-arik hingga matang.','Masukkan nasi, aduk rata dengan bumbu dan telur.','Tuang kecap manis, aduk hingga warna merata dan nasi sedikit kering.','Taburi daun bawang, aduk sebentar lalu angkat.']
+    },
+    {
+      id:4, cat:'utama', size:'normal', tag:'Menu Utama', time:'50 menit', level:'Menengah', porsi:'4 porsi',
+      image:'https://images.unsplash.com/photo-1529563021893-cc83c992d75d?auto=format&fit=crop&w=1000&q=85',
+      title:'Sate Ayam Bumbu Kacang',
+      desc:'Sate ayam empuk dengan siraman bumbu kacang kental yang manis gurih.',
+      ing:[['Dada ayam, potong dadu','500 g'],['Kecap manis untuk olesan','3 sdm'],['Kacang tanah goreng','200 g'],['Bawang putih','3 siung'],['Cabai merah','4 buah'],['Gula merah','2 sdm'],['Air asam jawa','2 sdm'],['Tusuk sate','20 batang']],
+      steps:['Tusuk potongan ayam ke tusuk sate, sisihkan.','Haluskan kacang tanah, bawang putih, dan cabai merah.','Tumis bumbu halus, tambahkan gula merah dan air secukupnya, masak hingga kental.','Bakar sate sambil diolesi kecap manis hingga matang dan sedikit kecokelatan.','Siram atau sajikan sate dengan bumbu kacang di sampingnya.']
+    },
+    {
+      id:5, cat:'kudapan', size:'small', tag:'Kudapan', time:'35 menit', level:'Mudah', porsi:'20 buah',
+      image:'https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=1000&q=85',
+      title:'Pisang Goreng Kremes',
+      desc:'Pisang goreng dengan lapisan tepung kremes renyah yang bertahan lama.',
+      ing:[['Pisang kepok','6 buah'],['Tepung beras','150 g'],['Tepung terigu','50 g'],['Gula pasir','2 sdm'],['Vanili bubuk','1/2 sdt'],['Air es','200 ml'],['Minyak goreng','secukupnya']],
+      steps:['Campur tepung beras, tepung terigu, gula, dan vanili, aduk rata.','Tuang air es sedikit demi sedikit sambil diaduk hingga adonan kental dan bertekstur kremes saat diteteskan.','Belah pisang menjadi dua atau tiga bagian memanjang.','Celupkan pisang ke adonan, goreng dalam minyak panas sambil disiram-siram adonan agar kremes menempel.','Goreng hingga keemasan dan renyah, angkat dan tiriskan.']
+    },
+    {
+      id:6, cat:'kudapan', size:'normal', tag:'Kudapan', time:'1 jam', level:'Menengah', porsi:'15 buah',
+      image:'https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1000&q=85',
+      title:'Klepon Pandan',
+      desc:'Kue tradisional isi gula merah cair berbalut kelapa parut, kejutan manis di setiap gigitan.',
+      ing:[['Tepung ketan','250 g'],['Air daun pandan suji','180 ml'],['Gula merah, sisir halus','100 g'],['Kelapa parut kasar','150 g'],['Garam','1/2 sdt']],
+      steps:['Campur tepung ketan dengan air pandan sedikit demi sedikit hingga adonan bisa dipulung.','Ambil sejumput adonan, pipihkan, isi dengan gula merah sisir, bulatkan rapat.','Kukus kelapa parut dengan sedikit garam selama 10 menit, sisihkan sebagai balutan.','Rebus klepon dalam air mendidih hingga mengapung, angkat dan tiriskan.','Gulingkan klepon panas ke kelapa parut kukus hingga terbalut merata.']
+    },
+    {
+      id:7, cat:'minuman', size:'small', tag:'Minuman', time:'15 menit', level:'Mudah', porsi:'2 gelas',
+      image:'https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?auto=format&fit=crop&w=1000&q=85',
+      title:'Es Cendol Gula Aren',
+      desc:'Segar, manis, dan gurih dari santan — pelepas dahaga khas siang hari yang terik.',
+      ing:[['Cendol siap pakai','200 g'],['Santan kental','200 ml'],['Gula aren cair','100 ml'],['Es batu, serut','secukupnya'],['Garam','sejumput']],
+      steps:['Rebus santan dengan sejumput garam hingga hangat, biarkan dingin.','Siapkan gelas saji, masukkan cendol di dasar gelas.','Tuang gula aren cair secukupnya di atas cendol.','Tambahkan es serut, siram dengan santan.','Aduk sebelum diminum agar rasa merata.']
+    },
+    {
+      id:8, cat:'sup', size:'normal', tag:'Berkuah', time:'1.5 jam', level:'Menengah', porsi:'5 porsi',
+      image:'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1000&q=85',
+      title:'Rawon Daging Hitam',
+      desc:'Sup daging khas Jawa Timur dengan kuah hitam pekat dari kluwek dan rasa rempah yang dalam.',
+      ing:[['Daging sandung lamur','600 g'],['Air','1800 ml'],['Kluwek','5 buah, ambil isinya'],['Bawang merah','8 siung'],['Bawang putih','4 siung'],['Kemiri','4 butir'],['Kunyit','2 cm'],['Serai','2 batang'],['Daun jeruk','4 lembar'],['Tauge pendek','100 g untuk pelengkap']],
+      steps:['Rebus daging hingga empuk, potong dadu, sisihkan kaldu.','Haluskan kluwek, bawang merah, bawang putih, kemiri, dan kunyit.','Tumis bumbu halus bersama serai dan daun jeruk hingga harum dan berwarna gelap.','Masukkan tumisan bumbu ke dalam kaldu bersama potongan daging.','Masak dengan api kecil selama 30–40 menit hingga bumbu meresap dan kuah mengental.','Sajikan panas dengan taburan tauge pendek dan sambal terasi.']
+    }
+  ];
+
+  const plateGradients = [
+    'radial-gradient(ellipse at 25% 25%, rgba(214,71,46,0.55), transparent 55%), radial-gradient(ellipse at 75% 70%, rgba(227,168,87,0.5), transparent 55%), linear-gradient(135deg,#3a2417,#1c120c)',
+    'radial-gradient(ellipse at 70% 20%, rgba(227,168,87,0.55), transparent 55%), radial-gradient(ellipse at 25% 75%, rgba(124,154,107,0.4), transparent 55%), linear-gradient(135deg,#432c1c,#1c120c)',
+    'radial-gradient(ellipse at 30% 70%, rgba(124,154,107,0.5), transparent 55%), radial-gradient(ellipse at 75% 25%, rgba(214,71,46,0.4), transparent 55%), linear-gradient(135deg,#3d281a,#1a100b)',
+    'radial-gradient(ellipse at 50% 30%, rgba(227,168,87,0.5), transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(214,71,46,0.35), transparent 55%), linear-gradient(135deg,#402a1b,#1c120c)'
+  ];
+
+  function plateSVG(idx){
+    const grad = plateGradients[idx % plateGradients.length];
+    return `<div style="width:100%;height:100%;background:${grad};position:relative;">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(244,233,218,0.06) 1px, transparent 1px);background-size:14px 14px;"></div>
+    </div>`;
+  }
+
+  /* ---------------- RENDER GRID ---------------- */
+  const grid = document.getElementById('recipeGrid');
+
+  function sizeClass(s){
+    if(s==='big') return 'big';
+    if(s==='small') return 'small';
+    return '';
+  }
+
+  recipes.forEach((r, i) => {
+    const card = document.createElement('article');
+    card.className = `rcard ${sizeClass(r.size)}`;
+    card.dataset.cat = r.cat;
+    card.dataset.id = r.id;
+    card.innerHTML = `
+      <div class="thumb">
+        <img class="recipe-photo" src="${r.image}" alt="${r.title}" loading="lazy"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="recipe-photo-fallback" style="display:none;">${r.title}</div>
+        <span class="tag">${r.tag}</span>
+      </div>
+      <div class="body">
+        <h3>${r.title}</h3>
+        <p>${r.desc}</p>
+        <div class="meta">
+          <span>⏱ ${r.time}</span>
+          <span>${r.level}</span>
+          <span>${r.porsi}</span>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => openModal(r, i));
+    grid.appendChild(card);
+  });
+
+  /* ---------------- FILTER ---------------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.rcard').forEach(card=>{
+        const show = f==='semua' || card.dataset.cat===f;
+        card.style.transition = 'opacity .3s ease';
+        card.style.opacity = 0;
+        setTimeout(()=>{
+          card.classList.toggle('hidden-card', !show);
+          if(show) requestAnimationFrame(()=>{ card.style.opacity = 1; });
+        }, show ? 0 : 150);
+      });
+    });
+  });
+
+  /* ---------------- MODAL ---------------- */
+  const overlay = document.getElementById('modalOverlay');
+  const modalContent = document.getElementById('modalContent');
+
+  function openModal(r, i){
+    modalContent.innerHTML = `
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+      <span class="tag">${r.tag}</span>
+      <h2>${r.title}</h2>
+      <p class="modal-desc">${r.desc}</p>
+      <div class="modal-meta">
+        <div><span>Waktu masak</span><strong>${r.time}</strong></div>
+        <div><span>Tingkat</span><strong>${r.level}</strong></div>
+        <div><span>Porsi</span><strong>${r.porsi}</strong></div>
+      </div>
+      <div class="modal-cols">
+        <div>
+          <h4>BAHAN</h4>
+          <ul class="ing-list">
+            ${r.ing.map(x=>`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join('')}
+          </ul>
+        </div>
+        <div>
+          <h4>LANGKAH</h4>
+          <ul class="step-list">
+            ${r.steps.map((s,idx)=>`<li><span class="num">${idx+1}</span><span>${s}</span></li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    `;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  }
+
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+  /* ---------------- NAV ---------------- */
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', ()=>{
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+  /* ---------------- HERO ENTRANCE (single orchestrated sequence) ---------------- */
+  window.addEventListener('load', ()=>{
+    const seq = [
+      {id:'a1', delay:0},
+      {id:'a2', delay:120},
+      {id:'steamSvg', delay:380, isSteam:true},
+      {id:'a3', delay:520},
+      {id:'a4', delay:640},
+      {id:'a5', delay:260}
+    ];
+    seq.forEach(item=>{
+      const el = document.getElementById(item.id);
+      setTimeout(()=>{
+        el.style.transition = 'opacity .8s cubic-bezier(.22,.68,.16,1), transform .8s cubic-bezier(.22,.68,.16,1)';
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+        if(item.isSteam){
+          const path = el.querySelector('path');
+          path.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.22,.68,.16,1)';
+          path.style.strokeDashoffset = 0;
+        }
+      }, item.delay);
+    });
+  });
+
+  /* ---------------- SCROLL REVEAL ---------------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=> io.observe(el));
+
+  /* ---------------- NEWSLETTER ---------------- */
+  const nlForm = document.getElementById('nlForm');
+  const nlMsg = document.getElementById('nlMsg');
+  nlForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('nlEmail').value;
+    nlMsg.textContent = `Terima kasih! Resep baru akan dikirim ke ${email}.`;
+    nlMsg.setAttribute('role','status');
+    nlForm.reset();
+  });
+
+})();
+</script>
+
+</body>
+</html>
